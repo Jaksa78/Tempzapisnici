@@ -1,0 +1,49 @@
+pip install xlsxwriter
+
+import xlsxwriter
+
+workbook = xlsxwriter.Workbook('TZ_test1.xlsx')
+
+cell_format = workbook.add_format()
+
+#ovo dolje iz nekog razloga ne funkcionira. Program stvara excel listove koji su u fontu "Colibri" i sa veličinom 11, što je po defaultu tako postavljeno, a
+ideja je da sve bude u fontu "Arial" i sa veličinom 10.
+cell_format.set_font_name('Arial')
+cell_format.set_font_size(10)
+
+worksheet = workbook.add_worksheet()
+
+worksheet.set_default_row(24.5)
+worksheet.set_column(0, 0, 19.36)
+worksheet.set_column(1, 1, 29.36)
+worksheet.set_column(2, 2, 19.36)
+
+# Some data we want to write to the worksheet.
+data = (
+    ['User Information', 'RC-5 Data Logger'],
+    ['Number',  '001'],
+    ['Interval',  '1:0:0 H:M:S'],
+    ['Delay Time',  '0.0 H'],
+    ['Data Sum',  '165'],
+    ['Temperature Maximum',  'XX'],
+    ['Temperature Minimum',  'xx'],
+    ['Temperature Alarm Upper',  '60.0°C'],
+    ['Temperature Alarm Lower', '-30.0°C'],
+    ['Start Time',  'xxx'],
+    ['End Time',  'yyyy'],
+    ['Date Format',  'yyyy-MM-dd HH:mm:ss'],
+    ['Temperature Unit', '°C']
+)
+
+# Start from the first cell. Rows and columns are zero indexed.
+row = 1
+col = 0
+
+
+# Iterate over the data and write it out row by row.
+for item, cost in (data):
+    worksheet.write(row, col,     item)
+    worksheet.write(row, col + 1, cost)
+    row += 1
+
+workbook.close()
